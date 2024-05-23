@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utility.BaseDriver;
-
 import java.time.Duration;
 
 
@@ -78,9 +77,13 @@ public class CLS_CI_UC1 extends BaseDriver {
 
         // Launch website
         driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+//        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")).click();
         WebElement create_btn = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        javaScriptExecutor.executeScript("arguments[0].click()", create_btn);
+//        javaScriptExecutor.executeScript("arguments[0].click()", create_btn);
+        create_btn.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         WebElement charge_name = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("charge-item-create_name")));
         charge_name.sendKeys("UCCITest#02");
         WebElement charge_type = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='charge-item-create_chargeTypeId']")));
