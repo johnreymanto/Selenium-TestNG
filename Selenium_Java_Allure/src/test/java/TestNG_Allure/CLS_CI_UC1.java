@@ -15,8 +15,7 @@ public class CLS_CI_UC1 extends BaseDriver {
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 1)
     @Description("To create/save a new charge item with \"Registration\" charge type value\n")
     @Severity(SeverityLevel.NORMAL)
-    public void UC_LH_CLS_CI_01_01_01() throws InterruptedException {
-
+    public void UC_LH_CLS_CI_01_01_01() {
 
         // Launch website
         driver.get(billingurlpage);
@@ -33,19 +32,18 @@ public class CLS_CI_UC1 extends BaseDriver {
         // Waiting for loader
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id(chargeitemname));
-        charge_name.sendKeys(frstchargeitemvalue);
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue1);
         driver.findElement(By.id(chargetypeid)).click();
         driver.findElement(By.xpath(registrationctid)).click();
-        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription);
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
         driver.findElement(By.id(basecurrencyid)).click();
         driver.findElement(By.xpath(sgdbcid)).click();
-        driver.findElement(By.xpath(gstapplicable)).click();
+        driver.findElement(By.xpath(gstApplicabletrue)).click();
         driver.findElement(By.id(chargeamount)).sendKeys(frstamount);
         driver.findElement(By.id(glnumberid)).click();
-        driver.findElement(By.xpath(glnumberid1)).click();
+        driver.findElement(By.xpath(glnumberidvalue1)).click();
         driver.findElement(By.id(refundableid)).click();
-        driver.findElement(By.xpath(tagtoregistration)).click();
+        driver.findElement(By.xpath(tagtoregistrationtrue)).click();
 
 //        driver.findElement(By.xpath(savebtn)).click();
 
@@ -56,7 +54,7 @@ public class CLS_CI_UC1 extends BaseDriver {
 //        Need to remove these lines in actual testing
 
 //    Assertion
-        driver.findElement(By.xpath(searchci)).sendKeys(chargeitemvalue2);
+        driver.findElement(By.xpath(searchci)).sendKeys(searchitemvalue2);
         action.sendKeys(Keys.ENTER).perform();
 
         WebElement item = driver.findElement(By.xpath(searchcitem));
@@ -68,51 +66,50 @@ public class CLS_CI_UC1 extends BaseDriver {
 
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 2)
     @Description("To create/save a new charge item with \"Admin\" charge type value\n")
-    public void UC_LH_CLS_CI_01_01_02() throws InterruptedException {
+    public void UC_LH_CLS_CI_01_01_02() {
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
         create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#02");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='Admin']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_baseCurrencyId")).click();
-        driver.findElement(By.xpath("//div[@class='ant-select-item-option-content'][contains(text(),'USD')]")).click();
-        driver.findElement(By.xpath("//div[@id='charge-item-create_gstApplicable']//input[@class='ant-radio-input' and @value='false']")).click();
-        driver.findElement(By.id("charge-item-create_amount")).sendKeys("600.50");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='002']")).click();
-        driver.findElement(By.xpath("//div[@id='charge-item-create_tagToRegistration']//input[@class='ant-radio-input' and @value='false']")).click();
-        driver.findElement(By.id("charge-item-create_profitCentreId")).click();
-        driver.findElement(By.xpath("//div[@title='PC 1']")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue2);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(adminctid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(basecurrencyid)).click();
+        driver.findElement(By.xpath(usdbcid)).click();
+        driver.findElement(By.xpath(gstapplicablefalse)).click();
+        driver.findElement(By.id(chargeamount)).sendKeys(secndamount);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue2)).click();
+        driver.findElement(By.xpath(tagtoregistrationfalse)).click();
+        driver.findElement(By.id(profitcentreid)).click();
+        driver.findElement(By.xpath(profitcentreidvalue1)).click();
 
-//        driver.find_element(By.XPATH, "//button[@class='ant-btn css-lg6yg ant-btn-primary']//span[contains(text(), 'Save')]").click()
+//        driver.findElement(By.xpath(savebtn)).click();
 
 //    Need to remove these lines in actual testing
-        driver.findElement(By.xpath("//button[@aria-label='Close']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'confirm-modal-ok-btn')]")).click();
+        driver.findElement(By.xpath(xbtn)).click();
+        driver.findElement(By.xpath(modalokbtn)).click();
 
 //     Need to remove these lines in actual testing
 
 //    Assertion
-        driver.findElement(By.xpath("//input[@placeholder='Search by charge item']")).sendKeys("UC_CI_Test#02");
+        driver.findElement(By.xpath(searchci)).sendKeys(searchitemvalue2);
         action.sendKeys(Keys.ENTER).perform();
 
-        WebElement item = driver.findElement(By.xpath("//td[@class='ant-table-cell ant-table-cell-ellipsis'][1]"));
+        WebElement item = driver.findElement(By.xpath(searchcitem));
 
-        String expected_value = "UC_CI_Test#02";
+        String expected_value = expectedvalue1;
         Assert.assertEquals(item.getText(), expected_value);
 
 
@@ -121,89 +118,92 @@ public class CLS_CI_UC1 extends BaseDriver {
 
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 3)
     @Description("To create/save a new charge item with \"Duplicate Invoice\" charge type value\n")
-    public void UC_LH_CLS_CI_01_01_03() throws InterruptedException {
+    public void UC_LH_CLS_CI_01_01_03() {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#03");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='Duplicate Invoice']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='005']")).click();
-        driver.findElement(By.xpath("//div[@id='charge-item-create_tagToRegistration']//input[@class='ant-radio-input' and @value='false']")).click();
-        driver.findElement(By.id("charge-item-create_profitCentreId")).click();
-        driver.findElement(By.xpath("//div[@title='PC 2']")).click();
-//        driver.findElement(By.xpath("//button[@class='ant-btn css-lg6yg ant-btn-primary']//span[contains(text(), 'Save')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue3);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(duplicateinvoiceid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue3)).click();
+        driver.findElement(By.xpath(tagtoregistrationfalse)).click();
+        driver.findElement(By.id(profitcentreid)).click();
+        driver.findElement(By.xpath(profitcentreidvalue2)).click();
 
-//    Need to remove these lines in actual testing
-        driver.findElement(By.xpath("//button[@aria-label='Close']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'confirm-modal-ok-btn')]")).click();
+//        driver.findElement(By.xpath(savebtn)).click();
 
 //    Need to remove these lines in actual testing
+        driver.findElement(By.xpath(xbtn)).click();
+        driver.findElement(By.xpath(modalokbtn)).click();
+
+//     Need to remove these lines in actual testing
 
 //    Assertion
-        driver.findElement(By.xpath("//input[@placeholder='Search by charge item']")).sendKeys("UC_CI_Test#02");
+        driver.findElement(By.xpath(searchci)).sendKeys(searchitemvalue2);
         action.sendKeys(Keys.ENTER).perform();
 
-        WebElement item = driver.findElement(By.xpath("//td[@class='ant-table-cell ant-table-cell-ellipsis'][1]"));
+        WebElement item = driver.findElement(By.xpath(searchcitem));
 
-        String expected_value = "UC_CI_Test#02";
+        String expected_value = expectedvalue1;
         Assert.assertEquals(item.getText(), expected_value);
     }
 
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 4)
     @Description("To create/save a new charge item with \"General\" charge type value\n")
-    public void UC_LH_CLS_CI_01_01_04() throws InterruptedException {
+    public void UC_LH_CLS_CI_01_01_04() {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UC_CITest#04");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='006']")).click();
-//        driver.findElement(By.xpath("//button[@class='ant-btn css-lg6yg ant-btn-primary']//span[contains(text(), 'Save')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue4);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue4)).click();
+
+
+//        driver.findElement(By.xpath(savebtn)).click();
 
 //    Need to remove these lines in actual testing
-        driver.findElement(By.xpath("//button[@aria-label='Close']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'confirm-modal-ok-btn')]")).click();
-//    Need to remove these lines in actual testing
+        driver.findElement(By.xpath(xbtn)).click();
+        driver.findElement(By.xpath(modalokbtn)).click();
+
+//     Need to remove these lines in actual testing
 
 //    Assertion
-        driver.findElement(By.xpath("//input[@placeholder='Search by charge item']")).sendKeys("UC_CI_Test#02");
+        driver.findElement(By.xpath(searchci)).sendKeys(searchitemvalue2);
         action.sendKeys(Keys.ENTER).perform();
 
-        WebElement item = driver.findElement(By.xpath("//td[@class='ant-table-cell ant-table-cell-ellipsis'][1]"));
+        WebElement item = driver.findElement(By.xpath(searchcitem));
 
-        String expected_value = "UC_CI_Test#02";
+        String expected_value = expectedvalue1;
         Assert.assertEquals(item.getText(), expected_value);
 
     }
