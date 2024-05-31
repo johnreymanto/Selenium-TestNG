@@ -1,0 +1,8 @@
+utility\StringData.class
+TestNG_Allure\CLS_CI_UC2.class
+utility\StringLocator.class
+TestNG_Allure\CLS_CI_UC1.class
+utility\CustomRetryAnalyzer.class
+utility\LocatorManager.class
+utility\BaseDriver.class
+utility\DataManager.class
