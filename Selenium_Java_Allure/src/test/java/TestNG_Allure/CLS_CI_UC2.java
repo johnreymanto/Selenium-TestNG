@@ -3,10 +3,13 @@ import Utility.BaseDriver;
 import io.qameta.allure.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.time.Duration;
+import java.util.List;
+
+import static Utility.StringData.*;
+import static Utility.StringLocator.*;
 
 
 public class CLS_CI_UC2 extends BaseDriver {
@@ -17,15 +20,19 @@ public class CLS_CI_UC2 extends BaseDriver {
     public void UC_LH_CLS_CI_01_02_01() {
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        driver.findElement(By.xpath("//a[@href='/billing/billing-configuration']")).click();
-        driver.findElement(By.xpath("//a[@href='/billing/billing-configuration/charge-items']")).click();
+        // Launch website
+        driver.get(billingurlpage);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.findElement(By.xpath(billconfiglocator)).click();
+        driver.findElement(By.xpath(chargeitempage)).click();
+
+        // Waiting for loader
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
 //    Assertion
-        WebElement item = driver.findElement(By.xpath("//div[contains(text(), 'Total')]"));
+        WebElement item = driver.findElement(By.xpath(chargetotalitem));
         String[] to_item = item.getText().split(" ");
-        String expected_value = "69";
+        String expected_value = expectederrorvalue3;
         Assert.assertEquals(to_item[1], expected_value);
 
     }
@@ -33,38 +40,34 @@ public class CLS_CI_UC2 extends BaseDriver {
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 2)
     @Description("To filter all \"Active\" charge items\n")
     @Severity(SeverityLevel.NORMAL)
-    public void UC_LH_CLS_CI_01_02_02() {
-
+    public void UC_LH_CLS_CI_01_02_02() throws InterruptedException {
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        WebElement filter_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='filter-funnel-btn']")));
+        WebElement filter_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(funnelbtn)));
         jse.executeScript("arguments[0].click()", filter_btn);
-        WebElement status_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='button']")));
+        WebElement status_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(colexpbtn)));
         jse.executeScript("arguments[0].click()", status_btn);
-        WebElement active_btn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='ACTIVE']")));
+        WebElement active_btn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(statusfilteractive)));
         jse.executeScript("arguments[0].click()", active_btn);
-        WebElement apply_btn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Apply')]")));
+        WebElement apply_btn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(filterapplybtn)));
         jse.executeScript("arguments[0].click()", apply_btn);
 
 //    Assertion
-        int colCount = driver.findElements(By.xpath("//th[contains(@class, 'ant-table-column-has-sorters')]")).size();
-        boolean chargeItemStatus = false;
-        for (int i = 0; i < colCount; i++) {
-            String val = driver.findElement(By.xpath("//td[contains(@class, 'ant-table-cell-ellipsis')][9]")).getText();
-            if (val.equals("Active")) {
-                chargeItemStatus = true;
 
-            } else {
-                chargeItemStatus = false;
-                break;
+        int rowCount = driver.findElements(By.xpath(chargeItemRow)).size();
+        List<WebElement> cStatus = driver.findElements(By.xpath("//td[contains(@class, 'ant-table-cell-ellipsis')][9]"));
+
+        int activeItemStatus = 0;
+        for(WebElement status:cStatus) {
+            if(status.getText().equals("Active")) {
+                activeItemStatus++;
             }
+
         }
 
-        //Assertion
-        boolean expected_value = true;
-        Assert.assertEquals(chargeItemStatus, expected_value);
+        Assert.assertEquals(activeItemStatus,rowCount);
 
     }
 

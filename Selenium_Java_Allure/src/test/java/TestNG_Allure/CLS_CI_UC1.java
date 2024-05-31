@@ -19,7 +19,7 @@ public class CLS_CI_UC1 extends BaseDriver {
 
         // Launch website
         driver.get(billingurlpage);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         driver.findElement(By.xpath(billconfiglocator)).click();
         driver.findElement(By.xpath(chargeitempage)).click();
 
@@ -28,6 +28,7 @@ public class CLS_CI_UC1 extends BaseDriver {
 
         WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
         jse.executeScript("arguments[0].click()", create_btn);
+//        create_btn.click();
 
         // Waiting for loader
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
@@ -76,7 +77,7 @@ public class CLS_CI_UC1 extends BaseDriver {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
         WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
-        create_btn.click();
+        jse.executeScript("arguments[0].click()", create_btn);
 
         // Waiting for loader
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
@@ -129,7 +130,7 @@ public class CLS_CI_UC1 extends BaseDriver {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
         WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
-        create_btn.click();
+        jse.executeScript("arguments[0].click()", create_btn);
 
         // Waiting for loader
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
@@ -176,7 +177,7 @@ public class CLS_CI_UC1 extends BaseDriver {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
         WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
-        create_btn.click();
+        jse.executeScript("arguments[0].click()", create_btn);
 
         // Waiting for loader
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
@@ -214,62 +215,61 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UC_CI_Test#01");
-        driver.findElement(By.id("charge-item-create_name"));
+        driver.findElement(By.id(chargeitemname)).sendKeys(existingchargeitemvalue1);
+        driver.findElement(By.id(chargeitemname));
         action.sendKeys(Keys.TAB).perform();
 
-//        driver.findElement(By.xpath("//button[@class='ant-btn css-lg6yg ant-btn-primary']//span[contains(text(), 'Save')]")).click();
+//        driver.findElement(By.xpath(savebtn)).click();
 
 //    Assertion
 
-        WebElement error_message = driver.findElement(By.xpath("//div[@id='charge-item-create_name_help']//div[@class='ant-form-item-explain-error']"));
-        String expected_error = "There is an existing charge item with the same name.";
+        WebElement error_message = driver.findElement(By.xpath(errormessage1));
+        String expected_error = expectederrorvalue1;
         Assert.assertEquals(error_message.getText(), expected_error);
 
     }
 
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 6)
     @Description("To create/save a new charge item with blank charge item name")
-    public void UC_LH_CLS_CI_01_01_06_1() throws InterruptedException {
+    public void UC_LH_CLS_CI_01_01_06_1() {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='Admin']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='001']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Save')]")).click();
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(adminctid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue1)).click();
+        driver.findElement(By.xpath(savebtn)).click();
 
 //    Assertion
 
-        WebElement error_message = driver.findElement(By.xpath("//div[@class='ant-form-item-explain-error']"));
-        String expected_error = "Enter a value to proceed.";
+        WebElement error_message = driver.findElement(By.xpath(mandatoryerrormessage1));
+        String expected_error = mandatoryerrorvalue1;
         Assert.assertEquals(error_message.getText(), expected_error);
 
     }
@@ -280,99 +280,95 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#06");
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='002']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Save')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue6);
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue2)).click();
+        driver.findElement(By.xpath(savebtn)).click();
 
 //    Assertion
 
-        WebElement error_message = driver.findElement(By.xpath("//div[@class='ant-form-item-explain-error']"));
-        String expected_error = "Select a value to proceed.";
+        WebElement error_message = driver.findElement(By.xpath(mandatoryerrormessage1));
+        String expected_error = mandatoryerrorvalue2;
         Assert.assertEquals(error_message.getText(), expected_error);
 
     }
 
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 8)
     @Description("To create/save a new charge item with blank charge description")
-    public void UC_LH_CLS_CI_01_01_06_3() throws InterruptedException {
+    public void UC_LH_CLS_CI_01_01_06_3() {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#06");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='Duplicate Invoice']")).click();
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='005']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Save')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue6);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(duplicateinvoiceid)).click();
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue3)).click();
+        driver.findElement(By.xpath(savebtn)).click();
 
 //    Assertion
 
-        WebElement error_message = driver.findElement(By.xpath("//div[@class='ant-form-item-explain-error']"));
-        String expected_error = "Enter a value to proceed.";
+        WebElement error_message = driver.findElement(By.xpath(mandatoryerrormessage1));
+        String expected_error = mandatoryerrorvalue1;
         Assert.assertEquals(error_message.getText(), expected_error);
 
     }
 
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 9)
     @Description("To create/save a new charge item without GL Number")
-    public void UC_LH_CLS_CI_01_01_06_4() throws InterruptedException {
+    public void UC_LH_CLS_CI_01_01_06_4() {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+//        jse.executeScript("arguments[0].click()", create_btn);
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#06");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Save')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue6);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.xpath(savebtn)).click();
 
 //    Assertion
 
-        WebElement error_message = driver.findElement(By.xpath("//div[@class='ant-form-item-explain-error']"));
-        String expected_error = "Select a value to proceed.";
+        WebElement error_message = driver.findElement(By.xpath(mandatoryerrormessage1));
+        String expected_error = mandatoryerrorvalue2;
         Assert.assertEquals(error_message.getText(), expected_error);
-
-        WebElement create_item = driver.findElement(By.xpath("//input[@id='charge-item-create_name']"));
 
     }
 
@@ -382,31 +378,30 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#07");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='006']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-default')]//span[contains(text(), 'Cancel')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue7);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue4)).click();
+        driver.findElement(By.xpath(cancelbtn)).click();
 
 //    Assertion
 
-        WebElement confirm_message = driver.findElement(By.xpath("//div[@class='ant-modal-confirm-content']"));
-        String expected_message = "You are about to cancel your entry and your configurations will not be saved. Are you sure you want to proceed?";
+        WebElement confirm_message = driver.findElement(By.xpath(modalconfirmcontent));
+        String expected_message = expectederrorvalue2;
         Assert.assertEquals(confirm_message.getText(), expected_message);
 
 
@@ -418,32 +413,31 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#07");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='006']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-default')]//span[contains(text(), 'Cancel')]")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'confirm-modal-ok-btn')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue7);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue4)).click();
+        driver.findElement(By.xpath(cancelbtn)).click();
+        driver.findElement(By.xpath(modalokbtn)).click();
 
 //    Assertion
 
         String get_url = driver.getCurrentUrl();
-        String expected_url = "https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items";
+        String expected_url = chargeitemurl;
         Assert.assertEquals(get_url, expected_url);
 
     }
@@ -454,31 +448,30 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#08");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='006']")).click();
-        driver.findElement(By.xpath("//button[@aria-label='Close']")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue8);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue4)).click();
+        driver.findElement(By.xpath(xbtn)).click();
 
 //    Assertion
 
-        WebElement confirm_message = driver.findElement(By.xpath("//div[@class='ant-modal-confirm-content']"));
-        String expected_message = "You are about to cancel your entry and your configurations will not be saved. Are you sure you want to proceed?";
+        WebElement confirm_message = driver.findElement(By.xpath(modalconfirmcontent));
+        String expected_message = expectederrorvalue2;
         Assert.assertEquals(confirm_message.getText(), expected_message);
 
     }
@@ -489,32 +482,31 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#08");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='006']")).click();
-        driver.findElement(By.xpath("//button[@aria-label='Close']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'confirm-modal-ok-btn')]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue8);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue4)).click();
+        driver.findElement(By.xpath(xbtn)).click();
+        driver.findElement(By.xpath(modalokbtn)).click();
 
 //    Assertion
 
         String get_url = driver.getCurrentUrl();
-        String expected_url = "https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items";
+        String expected_url = chargeitemurl;
         Assert.assertEquals(get_url, expected_url);
 
     }
@@ -525,32 +517,31 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#09");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("For testing");
-        driver.findElement(By.id("charge-item-create_glNumberId")).click();
-        driver.findElement(By.xpath("//div[@title='006']")).click();
-        driver.findElement(By.xpath("//button[contains(@class, 'ant-btn-default')]//span[contains(text(), 'Cancel')]")).click();
-        driver.findElement(By.xpath("(//button[contains(@class, 'ant-btn-default')]//span[contains(text(), 'Cancel')])[2]")).click();
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue9);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription1);
+        driver.findElement(By.id(glnumberid)).click();
+        driver.findElement(By.xpath(glnumberidvalue4)).click();
+        driver.findElement(By.xpath(cancelbtn)).click();
+        driver.findElement(By.xpath(modalcancelbtn)).click();
 
         //    Assertion
 
         String get_url = driver.getCurrentUrl();
-        String expected_url = "https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items/create";
+        String expected_url = createchargeitemurl;
         Assert.assertEquals(get_url, expected_url);
 
     }
@@ -561,25 +552,24 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement cancel_btn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[contains(@class, 'ant-btn-default')]//span[contains(text(), 'Cancel')]")));
-        cancel_btn.click();
+        driver.findElement(By.xpath(cancelbtn)).click();
 
         //    Assertion
 
         String get_url = driver.getCurrentUrl();
-        String expected_url = "https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items";
+        String expected_url = chargeitemurl;
         Assert.assertEquals(get_url, expected_url);
 
     }
@@ -590,57 +580,54 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement x_btn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@aria-label='Close']")));
-        x_btn.click();
+        driver.findElement(By.xpath(xbtn)).click();
 
         //    Assertion
 
         String get_url = driver.getCurrentUrl();
-        String expected_url = "https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items";
+        String expected_url = chargeitemurl;
         Assert.assertEquals(get_url, expected_url);
 
     }
 
 
     @Test(groups = {"smokeTest", "regressionTest"}, priority = 17)
-    @Description("To cancel a newly launch unmodified form using x button\n")
+    @Description("To cancel a newly launch unmodified form using Esc button in keyboard\n")
     public void UC_LH_CLS_CI_01_01_12() throws InterruptedException {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
         jse.executeScript("arguments[0].click()", create_btn);
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        driver.findElement(By.id("charge-item-create_name"));
-        Thread.sleep(200);
-        action.click().sendKeys(Keys.ESCAPE).perform();
-        Thread.sleep(500);
+        WebElement chargename = driver.findElement(By.id(chargeitemname));
+        action.click(chargename).sendKeys(Keys.ESCAPE).perform();
 
         //    Assertion
-
+        Thread.sleep(1000);
         String get_url = driver.getCurrentUrl();
-        String expected_url = "https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items";
+        String expected_url = chargeitemurl;
         Assert.assertEquals(get_url, expected_url);
 
     }
@@ -651,29 +638,28 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement charge_name = driver.findElement(By.id("charge-item-create_name"));
-        charge_name.sendKeys("UCCITest#13");
-        driver.findElement(By.id("charge-item-create_chargeTypeId")).click();
-        driver.findElement(By.xpath("//div[@title='General']")).click();
-        driver.findElement(By.id("charge-item-create_description")).sendKeys("FortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingFortestingF");
+        driver.findElement(By.id(chargeitemname)).sendKeys(chargeitemvalue13);
+        driver.findElement(By.id(chargetypeid)).click();
+        driver.findElement(By.xpath(generalid)).click();
+        driver.findElement(By.id(chargeitemdesc)).sendKeys(chargeitemdescription2);
 
         //    Assertion
 
-        WebElement max_length = driver.findElement(By.xpath("//span[@class='ant-input-suffix']//span[contains(text(), '200/200')]"));
+        WebElement max_length = driver.findElement(By.xpath(maxtextarea));
 
-        String expected_length = "200/200";
+        String expected_length = expectedlength1;
         Assert.assertEquals(max_length.getText(), expected_length);
     }
 
@@ -683,27 +669,25 @@ public class CLS_CI_UC1 extends BaseDriver {
 
 
         // Launch website
-        driver.get("https://cls.dmo.lhubsg.com/billing/billing-configuration/charge-items");
+        driver.get(chargeitemurl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
-        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'ant-btn-primary')]//span[contains(text(), 'Create')]")));
-        jse.executeScript("arguments[0].click()", create_btn);
+        WebElement create_btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createbtn)));
+        create_btn.click();
 
         // Waiting for loader
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class, '_custom-loading-modal-container')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(spinloader)));
 
         //    Assertion
 
-        WebElement drawer_title = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h3[contains(text(), 'Create charge')]")));
+        WebElement drawer_title = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(createdrawertitle)));
 
-        String expected_title = "Create charge item";
+        String expected_title = createdrawertitlevalue;
         Assert.assertEquals(drawer_title.getText(), expected_title);
 
     }
-
-
 
 }
