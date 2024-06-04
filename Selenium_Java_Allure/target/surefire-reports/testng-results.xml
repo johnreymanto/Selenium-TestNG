@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-06-03T16:26:28 CST" name="Surefire suite" finished-at="2024-06-03T16:26:37 CST" duration-ms="9472">
+    <groups>
+    </groups>
+    <test started-at="2024-06-03T16:26:28 CST" name="Surefire test" finished-at="2024-06-03T16:26:37 CST" duration-ms="9472">
+      <class name="TestNG_Allure.TestSite">
+        <test-method is-config="true" signature="RunBaseDriver()[pri:0, instance:TestNG_Allure.TestSite@6574a52c]" started-at="2024-06-03T16:26:28 CST" name="RunBaseDriver" finished-at="2024-06-03T16:26:34 CST" duration-ms="5787" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- RunBaseDriver -->
+        <test-method signature="Testcase3()[pri:1, instance:TestNG_Allure.TestSite@6574a52c]" started-at="2024-06-03T16:26:34 CST" name="Testcase3" finished-at="2024-06-03T16:26:35 CST" duration-ms="880" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Testcase3 -->
+        <test-method signature="Testcase2()[pri:2, instance:TestNG_Allure.TestSite@6574a52c]" started-at="2024-06-03T16:26:35 CST" name="Testcase2" finished-at="2024-06-03T16:26:36 CST" duration-ms="1162" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Testcase2 -->
+        <test-method signature="Testcase1()[pri:3, instance:TestNG_Allure.TestSite@6574a52c]" started-at="2024-06-03T16:26:36 CST" name="Testcase1" finished-at="2024-06-03T16:26:37 CST" duration-ms="1388" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Testcase1 -->
+      </class> <!-- TestNG_Allure.TestSite -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
