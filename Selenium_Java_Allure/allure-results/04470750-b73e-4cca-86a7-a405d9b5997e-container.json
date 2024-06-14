@@ -1,1 +1,0 @@
-{"uuid":"04470750-b73e-4cca-86a7-a405d9b5997e","name":"TestNG_Allure.CLS_CI_UC1","children":["3682c090-1d22-4b0f-b199-3c67ad217375"],"befores":[{"name":"RunBaseDriver","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1717780866037,"stop":1717780871368}],"afters":[],"start":1717780866003,"stop":1717780890541}
